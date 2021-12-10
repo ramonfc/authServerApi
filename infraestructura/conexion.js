@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const urlDB ='mongodb+srv://daniel:udea28@cluster0.hcpun.mongodb.net/proyectosInvestigacion?retryWrites=true&w=majority'
+const urlDB ='mongodb+srv://mauricio123:1979Mono@cluster0.msw9f.mongodb.net/university_proyect?retryWrites=true&w=majority'
 mongoose.connect(urlDB);
 const mongoDB = mongoose.connection;
 mongoDB.on('open', _ =>{

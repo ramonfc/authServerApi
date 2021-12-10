@@ -1,30 +1,33 @@
 const User = require('../model/usuariosModel')
 const aes256 = require('aes256')
 const jwt = require('jsonwebtoken')
-const key = "CLAVEDIFICIL"
+const key = "porquemambrusefuealaguerra?";
 
 const logicaAuth = async (datosPeticion) => {
 
     try {
-        //console.log(datosPeticion)
-        const usuario = await User.findOne({ email: datosPeticion?.email })
+        console.log("DatosPeticion:",datosPeticion)
+        const usuario = await User.findOne({ correo: datosPeticion?.email })
         // verificar si esta activo.
-        //console.log('usuarioMOngo:',usuario)
+        console.log('usuarioMOngo:',usuario)
         if (!usuario) {   
                 return  {mensaje:"Verique usuario y contrasena",status: 401}    
         }
 
-        //console.log("claveee ", usuario.clave)
-        const claveDesencriptada = aes256.decrypt(key, usuario.clave)
-        //console.log("claveee Desencriptada", claveDesencriptada)
+        console.log("claveee ", usuario.contrasena)
+        const claveDesencriptada = aes256.decrypt(key, usuario.contrasena)
+        console.log("claveee Desencriptada", claveDesencriptada)
+        console.log("datosPeticion: ", datosPeticion)
         if (datosPeticion.clave != claveDesencriptada) {  
                 return  {mensaje:"Verique usuario y contrasena",status: 401} 
         }
 
+
         const token = jwt.sign({
 
-            rol: usuario.perfil,
-            name: usuario.nombre
+            tipoUsuario: usuario.tipoUsuario,
+            nombre: usuario.nombre,
+            identificacion: usuario.identificacion
 
         }, key, { expiresIn: 1500 })
         //console.log('token::::',token)
@@ -33,7 +36,7 @@ const logicaAuth = async (datosPeticion) => {
 
     } catch (error) {
         //console.log(error)
-        return {mensaje:"COntante al admin",status: 500} 
+        return {mensaje:"Contante al admin",status: 500} 
     }
     // pasarnos 2 parametros. correo y contrase;a
     // debemos verfiicar el correo que exista

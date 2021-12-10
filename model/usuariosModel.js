@@ -1,38 +1,46 @@
 const { Schema, model } = require('mongoose')
 
 const usuario = new Schema({
-    email: {
+    correo:{
         type: String,
-        required: true
-    },
-    identificacion: {
-        type: Number,
         required: true,
         unique: true,
         dropDups: true
     },
-    nombre: {
+    identificacion:{
+        type: String,
+        required: true,
+        unique: true,
+        dropDups: true 
+    },
+    nombre:{
         type: String,
         required: true
     },
-    clave: {
+    contrasena:{
         type: String,
         required: true
     },
-    perfil: {
+    tipoUsuario:{
         type: String,
+        enum:["ESTUDIANTE", "LIDER", "ADMINISTRADOR"]
+    },
+    estado:{
+        type: String,
+        enum:["PENDIENTE","AUTORIZADO","NO AUTORIZADO"],
         required: false,
-        default: 'Pendiente'
+        default: 'PENDIENTE'
     },
-    activo: {
+    activo:{
         type: Boolean,
         required: false,
-        default: false
+        default: true
     }
 
-
 },
-    {
-        timestamps: true
-    })
+{
+    timestamps : true
+})
 module.exports = model('usuarios', usuario, "usuarios")
+
+

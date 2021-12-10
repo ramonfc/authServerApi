@@ -2,7 +2,7 @@ const {Router} = require('express')
 const logicaAuth = require('../service/logicaAuth')
 const jwt = require('jsonwebtoken')
 
-const key = 'CLAVEDIFICIL'
+const key = "porquemambrusefuealaguerra?";
 
 const router = Router()
 
@@ -29,12 +29,13 @@ router.get('/verify', (request,response)=>{
         if (!tokenVerificado){
             return response.json( {response: "error, no tienes un token valido"})
         }
-        return response.json({ rol: tokenVerificado.rol,
-             nombre:tokenVerificado.name })
+        return response.json({ rol: tokenVerificado.tipoUsuario,
+             nombre:tokenVerificado.nombre, identificacion:tokenVerificado.identificacion })
 
     }catch{
         return response.json({error: "error de servidor o token invalido"})
     }
+
 
 })
 
