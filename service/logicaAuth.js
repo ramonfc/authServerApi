@@ -19,7 +19,14 @@ const logicaAuth = async (datosPeticion) => {
         console.log("claveee Desencriptada", claveDesencriptada)
         console.log("datosPeticion: ", datosPeticion)
         if (datosPeticion.clave != claveDesencriptada) {  
+            
                 return  {mensaje:"Verique usuario y contrasena",status: 401} 
+        }
+
+        console.log("usuario.estado: ", usuario.estado);
+        if (usuario.estado != "AUTORIZADO"){  
+            
+            return  {mensaje:"Pendiente de autorización o no autorizado",status: 401} 
         }
 
 
@@ -29,7 +36,7 @@ const logicaAuth = async (datosPeticion) => {
             nombre: usuario.nombre,
             identificacion: usuario.identificacion
 
-        }, key, { expiresIn: 1500 })
+        }, key, { expiresIn: 2000 })
         //console.log('token::::',token)
         return {mensaje:token,status: 200} 
         
