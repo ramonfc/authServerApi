@@ -23,6 +23,7 @@ const logicaAuth = async (datosPeticion) => {
 
             console.log("claveee ", usuario.contrasena)
             const claveDesencriptada = aes256.decrypt(key, usuario.contrasena)
+            // const claveDesencriptada = usuario.contrasena
             console.log("claveee Desencriptada", claveDesencriptada)
             console.log("datosPeticion: ", datosPeticion)
             if (datosPeticion.clave != claveDesencriptada) {
@@ -49,8 +50,8 @@ const logicaAuth = async (datosPeticion) => {
 
         }
     } catch (error) {
-        //console.log(error)
-        return { mensaje: "Contante al admin", status: 500 }
+        console.log("Error: ",error)
+        return { mensaje: "Contacte al admin", status: 500}
     }
     // pasarnos 2 parametros. correo y contrase;a
     // debemos verfiicar el correo que exista
